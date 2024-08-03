@@ -6,6 +6,7 @@
 \usepackage{color,soul}
 \usepackage{xcolor}
 \usepackage{hyperref}
+\usepackage{href-ul}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -82,9 +83,9 @@
 
 \subsection*{Plot-digitizer}
 \href{https://plotdigitizer.com/app}{Plot digitizer} app is used to digitize the plot given in the paper and the data obtained is used to calculate the gain factor.  
-\begin{center}
+\begin{figure}
         \includegraphics[scale = 0.3]{../Images/Previous/Plot-analyzer.png}        
-\end{center}
+\end{figure}
     
 
 \begin{align*}
@@ -103,29 +104,29 @@ The gain factor given in the reference is $4 \mu A/V^2$ the difference may be du
 \newpage
 \subsection*{Comparing acquired data with level-3 model}
 The Drain current ($I_{DS}$) is calculated using the level-3 model given by equation \ref{eq:DrainCurrent}, the gain factor is fixed at the value $4 \mu A/V^2$ as described in the paper. The comparison of calculated drain current and acquired drain current is shown in figure (\ref{fig:ids-comp-4}).
-\begin{center}
+\begin{figure}
     \label{fig:ids-comp-4}
     \includegraphics[scale = 0.6]{../Images/Previous/Ids-comp.png}    
-\end{center}
+\end{figure}
 
 
 If the gain factor is reduced to $3.5 \mu A / V^2$ the Comparison graph is as shown below in figure (\ref{fig:ids-comp-3.5}). 
-\begin{center}
+\begin{figure}
     \label{fig:ids-comp-3.5}
     \includegraphics[scale = 0.6]{../Images/Previous/Ids-comp-3.5.png}
 
-\end{center}
+\end{figure}
 The plot of $V_{GS} = 10 V$ is digitized and compared with the model with gain factor = 3.5 V the comparison is shown in figure (\ref{fig:ids-comp-10-3.5}). The range of $V_{DS}$ considered is $0 V \to 2.5 V$ because the plot is linear in that region. 
 
-\begin{center}
+\begin{figure}
     \label{fig:ids-comp-10-3.5}
     \includegraphics[scale=0.6]{../Images/Previous/Ids-comp-10-3.5.png}
-\end{center}
+\end{figure}
 The comparison of Calculated and acquired data for $V_{GS} = 12 V$ and for  $V_{DS}$  in range of $0 V\to 2.5 V $ is shown in figure (\ref{fig:ids-comp-12-3.5}). 
-\begin{center}
+\begin{figure}
     \label{fig:ids-comp-12-3.5}
     \includegraphics[scale=0.6]{../Images/Previous/Ids-comp-12-3.5.png}
-\end{center}
+\end{figure}
 
 \newpage
 
@@ -134,10 +135,10 @@ The comparison of Calculated and acquired data for $V_{GS} = 12 V$ and for  $V_{
 \subsection*{Model}
 The data from the plot is extracted for the gate voltage values of 
 \newline$4V, \; 6V, \;  8V, \; 10V, \; 12V$  and plotted in figure \ref{fig:Plot-Data-Digitized}.
-\begin{center}
+\begin{figure}
     \label{fig:Plot-Data-Digitized}
     \includegraphics[scale = 0.4]{../Images/Previous/Plot-Data-Digitized.png}
-\end{center}
+\end{figure}
 Since, there is a small slope in saturation region the previous model is modified and the new modified model contains a new parameter $\lambda$. 
 The new model is given by the equation \ref{eq:new-model}. 
 \begin{equation}
@@ -160,10 +161,10 @@ Variable parameters to fit the model for different values of $V_{GS}$ and $V_{DS
     \item $\lambda$ = 0.05
     \item $V_{th}$ = 2.45
 \end{itemize}
-\begin{center}
+\begin{figure}
     \label{fig:model-fit-1}
     \includegraphics[scale = 0.4]{../Images/Previous/Model-Fit-2.2-4-0.05-2.45.png}
-\end{center}
+\end{figure}
 \newpage
 \subsection*{Fit - 2}
 Variable parameters to fit the model for different values of $V_{GS}$ and $V_{DS}$. 
@@ -174,10 +175,10 @@ Variable parameters to fit the model for different values of $V_{GS}$ and $V_{DS
     \item $V_{th}$ = -0.2
 \end{itemize}
 With the parameters set the model is fit and shown in the figure \ref{fig:model-fit-2}.
-\begin{center}
+\begin{figure}
     \label{fig:model-fit-2}
     \includegraphics[scale = 0.4]{../Images/Previous/Model-Fit-3-3-0.044--0.2.png}
-\end{center}
+\end{figure}
 \subsubsection*{Analysis of the Fit}
 \textbf{$V_{DS}< V_{DSat}$}
 \begin{equation}
@@ -208,10 +209,10 @@ the equations of $V_{DSeff}$, $V_{DSat}$ and $V_{DSi}$ are given by equation \re
     V_{DSeff} &= V_{DSi} - \frac{1}{2}(V_{DSi}-V_{DSat}+\sqrt{(V_{DSi}-V_{DSat})^2+\Delta^2)}
 \end{align}
 The parameters are $\alpha$, gain, $V_{th}$, $\lambda$
-\begin{center}
+\begin{figure}
     \label{fig:model-1}
     \includegraphics[scale=0.4]{../Images/Previous/model-1.png}
-\end{center}
+\end{figure}
 \newpage
 \section{22-07-2024}
 \subsection{Above threshold and sub-threshold currents}
@@ -237,17 +238,17 @@ The equation of $I_s$ is given by equation (\ref{eq:Is})
 \end{equation}
 where, $I_{o} = I_{at}(V_{gs} = V_{th} + 3V_T)$ and $I_{p} = I_{at}(V_{gs} = V_{th} + 4V_T) $
 The figure (\ref{fig:at-st}) shows the above threshold and sub-threshold currents. 
-\begin{center}
+\begin{figure}
     \label{fig:at-st}
     \includegraphics[scale = 0.5]{../Images/22072024/Ids-at-st.png}
-\end{center}
+\end{figure}
 \newpage
 \subsection{Total current}
 Total current $I_{DS}$ is given by addition of sub-threshold and above-threshold currents as shown in figure(\ref{fig:Itot})
-\begin{center}
+\begin{figure}
     \label{fig:Itot}
     \includegraphics[scale=0.7]{../Images/22072024/Ids-total.png}
-\end{center}
+\end{figure}
 
 The sub-threshold and above threshold currents are added at a point  $V_{gs} = V_{th}+3V_T$ therefore, the slopes are not matched at that point. The gradient of the sub-threshold curve from the plot in the reference is found to be around 6.57 which should be equal to our $\frac{1}{m V_T}$ and that gives the value of $m = 5.85$. 
 
@@ -273,20 +274,26 @@ When slopes are equated, $V_{gs} = V_{th} + 2mV_T$. At this point if we equate c
     I_o = \text{ gain } \frac{2 m^2 V_T ^ 2 }{\alpha} 
 \end{equation}
 The figure (\ref{fig:at-st-tt}) shows the above threshold, sub-threshold and total currents after matching the slope. 
-\begin{center}
-    \label{fig:at-st-tt}
+\begin{figure}[h]
+    
     \includegraphics[scale = 0.4]{../Images/03082024/slope-Io.png}
-\end{center}
+    \caption{Currents after slope matching.}
+    \label{fig:at-st-tt}
+\end{figure}
 The figure (\ref{fig:total-current}) shows the total current curve in the region $V_{gs}$ from 0.5 V to 3 V. 
-\begin{center}
+\begin{figure}[h]
+    
+    \includegraphics[scale = 0.4]{../Images/03082024/slope-tot.png}
+    \caption{Total-current}
     \label{fig:total-current}
-    \includegraphics[scale = 0.6]{../Images/03082024/slope-tot.png}
-\end{center}
+\end{figure}
 It can be seen that the total current is having a sharp point where slope changes abruptly. 
-Is this because $I_o = I_{at}(V_{gs}=V_{th}+ 2 m V_T) $ by equation (\ref{eq:Io})  rather than considering $I_st (V_{gs}=V_{th}+ 2 m V_T) = I_{at}(V_{gs}=V_{th}+ 2 m V_T) $ that results in $I_o =  \text{ gain } \frac{2 m^2 V_T ^ 2 }{\alpha}  \exp(-2)$. After fixing $I_o$ to this new value when plotted we get the total current as shown in figure (\ref{fig:tot-slo}).  
-\begin{center}
+Is this because $I_o = I_{at}(V_{gs}=V_{th}+ 2 m V_T) $ by equation (\ref{eq:Io})  rather than considering $I_{st} (V_{gs}=V_{th}+ 2 m V_T) = I_{at}(V_{gs}=V_{th}+ 2 m V_T) $ that results in $I_o =  \text{ gain } \frac{2 m^2 V_T ^ 2 }{\alpha}  \exp(-2)$. After fixing $I_o$ to this new value when plotted we get the total current as shown in figure (\ref{fig:tot-slo}).  
+\begin{figure}[h]
+    
+    \includegraphics[scale=0.4]{../Images/03082024/Ioexp2.png}
+    \caption{Total-current if $I_{o} = I_{at} \exp(-2)$ }
     \label{fig:tot-slo}
-    \includegraphics[scale=0.6]{../Images/03082024/Ioexp2.png}
-\end{center}
+\end{figure}
 Even after this the slope is changing abruptly.
 \end{document}
