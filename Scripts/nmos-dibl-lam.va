@@ -1,0 +1,77 @@
+`include "constants.vams"
+`include "disciplines.vams"
+
+module nmos(D,G,S);
+inout D,G,S;
+electrical D,G,S,Di,Si;
+
+parameter real Vth1 = 1.2;
+parameter real alpha1 = 3.4;
+parameter real gain1  = 3.15e-6;
+parameter real dibl1 = 0.04;
+parameter real lambda1 = 0.03;
+
+parameter real Vth2 = 0.95;
+parameter real alpha2 = 1.7;
+parameter real gain2  = 6.93e-7;
+parameter real dibl2 =  0.08;
+parameter real lambda2 =  0.07;
+
+parameter real R = 3000;
+parameter real delta = 1e-30;
+
+parameter real m1 = 3;
+parameter real m2 = 1.2;
+parameter real k1 = 1;
+parameter real k2 = 1;
+
+real Vgsi,Vdsi,Vthi1,Vthi2,Vgst1,Vgst2,Vdsat1,Vdsat2,Vdseff1,Vdseff2,Iat1,Iat2,Iat;
+real Vgo1,Vgo2,Vgp1, Vgp2, Vdsato1, Vdsato2, Vdsatp1, Vdsatp2, Vdseffo1, Vdseffo2, Vdseffp1, Vdseffp2, Io1, Io2,Ip1, Ip2, Iss1, Iss2, Ist1, Ist2, Ist;
+analog begin
+
+I(Si,S) <+ V(Si,S)/R;
+I(D,Di) <+ V(D,Di)/R;
+Vgsi = V(G,GND) - V(Si,GND);
+Vdsi = V(Di,GND) - V(Si,GND);
+Vthi1 = Vth1 - dibl1*Vdsi;
+Vthi2 = Vth2 - dibl2*Vdsi;
+Vgst1 = (Vgsi-Vth1 + sqrt(pow(Vgsi-Vth1,2)+delta))/2;
+Vgst2 = (Vgsi-Vth2 + sqrt(pow(Vgsi-Vth2,2)+delta))/2;
+Vdsat1 = (Vgst1)/alpha1;
+Vdsat2 = (Vgst2)/alpha2;
+Vdseff1 = Vdsi - 0.5*(Vdsi - Vdsat1 + sqrt(pow(Vdsi-Vdsat1,2)+delta));
+Vdseff2 = Vdsi - 0.5*(Vdsi - Vdsat2 + sqrt(pow(Vdsi-Vdsat2,2)+delta));
+Iat1 = alpha1*gain1*(Vdseff1*Vdsat1 - pow(Vdseff1,2)/2)*(1+lambda1*Vdsi);
+Iat2 = alpha2*gain2*(Vdseff2*Vdsat2 - pow(Vdseff2,2)/2)*(1+lambda2*Vdsi);
+Iat  = Iat1+Iat2;
+//I(Di,Si) <+ Iat;
+
+
+
+Vgo1 = Vthi1 + m1*0.026 + Vdsi*alpha1/2;
+Vgo2 = Vthi2 + m2*0.026 + Vdsi*alpha2/2;
+Vgp1 = Vgo1 + k1*0.026;
+Vgp2 = Vgo2 + k2*0.026;
+Vdsato1 = (Vgo1-Vthi1)/alpha1;
+Vdsato2 = (Vgo2-Vthi2)/alpha2;
+Vdsatp1 = (Vgp1-Vthi1)/alpha1;
+Vdsatp2 = (Vgp2-Vthi2)/alpha2;
+Vdseffo1 = Vdsi - 0.5*(Vdsi-Vdsato1 + sqrt(pow(Vdsi-Vdsato1,2)+1e-30));
+Vdseffo2 = Vdsi - 0.5*(Vdsi-Vdsato2 + sqrt(pow(Vdsi-Vdsato2,2)+1e-30));
+Vdseffp1 = Vdsi - 0.5*(Vdsi-Vdsatp1 + sqrt(pow(Vdsi-Vdsatp1,2)+1e-30));
+Vdseffp2 = Vdsi - 0.5*(Vdsi-Vdsatp2 + sqrt(pow(Vdsi-Vdsatp2,2)+1e-30));
+Io1 = gain1*alpha1*(Vdsato1*Vdseffo1 - 0.5*(pow(Vdseffo1,2)));
+Io2 = gain2*alpha2*(Vdsato2*Vdseffo2 - 0.5*(pow(Vdseffo2,2)));
+Ip1 = gain1*alpha1*(Vdsatp1*Vdseffp1 - 0.5*pow(Vdseffp1,2));
+Ip2 = gain2*alpha2*(Vdsatp2*Vdseffp2 - 0.5*pow(Vdseffp2,2));
+Iss1 = Io1*exp((Vgsi-Vthi1)/(m1*0.026));
+Iss2 = Io2*exp((Vgsi-Vthi2)/(m2*0.026));
+Ist1 = (Iss1*Ip1)/(Iss1+Ip1);
+Ist2 = (Iss2*Ip2)/(Iss2+Ip2);
+Ist = Ist1+Ist2;
+I(Di,Si) <+ Iat + Ist;
+
+
+
+end
+endmodule

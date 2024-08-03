@@ -15,7 +15,7 @@
     pdfpagemode=FullScreen,
     }
 
-\title{report}
+\title{DDP report}
 \author{Siddhartha }
 \date{June 2024}
 
@@ -239,14 +239,14 @@ where, $I_{o} = I_{at}(V_{gs} = V_{th} + 3V_T)$ and $I_{p} = I_{at}(V_{gs} = V_{
 The figure (\ref{fig:at-st}) shows the above threshold and sub-threshold currents. 
 \begin{center}
     \label{fig:at-st}
-    \includegraphics[scale = 0.6]{../Images/22072024/Ids-at-st.png}
+    \includegraphics[scale = 0.5]{../Images/22072024/Ids-at-st.png}
 \end{center}
 \newpage
 \subsection{Total current}
 Total current $I_{DS}$ is given by addition of sub-threshold and above-threshold currents as shown in figure(\ref{fig:Itot})
 \begin{center}
     \label{fig:Itot}
-    \includegraphics[scale=1]{../Images/22072024/Ids-total.png}
+    \includegraphics[scale=0.7]{../Images/22072024/Ids-total.png}
 \end{center}
 
 The sub-threshold and above threshold currents are added at a point  $V_{gs} = V_{th}+3V_T$ therefore, the slopes are not matched at that point. The gradient of the sub-threshold curve from the plot in the reference is found to be around 6.57 which should be equal to our $\frac{1}{m V_T}$ and that gives the value of $m = 5.85$. 
@@ -255,5 +255,38 @@ The sub-threshold and above threshold currents are added at a point  $V_{gs} = V
 
 \hl{\textbf{Currently, I am figuring out how to find the gradients at every point and check if the slope is equal to 6.57 using verilog A. I have found a python interfacing for qucs at https://github.com/zonca/python-qucs.git and trying to send find gradients using it. }}
 
-
+\section{03-08-2024}
+\subsection{Slope matching}
+Slope of sub-threshold current in log-scale is given by equation (\ref{eq:slope-st}). 
+\begin{equation}
+    \label{eq:slope-st}
+    \frac{1}{mV_T}
+\end{equation}
+Slope of above-threshold current in log-scale when $V_{gs}$ is just greater than $V_{th}$ is given by equation (\ref{eq:slope-at}). 
+\begin{equation}
+    \label{eq:slope-at}
+    \frac{2}{V_{gs}-V_{th}}
+\end{equation}
+When slopes are equated, $V_{gs} = V_{th} + 2mV_T$. At this point if we equate currents, we get $I_o = I_{at}(V_{gs}=V_{th}+ 2 m V_T) $ by equation (\ref{eq:Io}). 
+\begin{equation}
+    \label{eq:Io}
+    I_o = \text{ gain } \frac{2 m^2 V_T ^ 2 }{\alpha} 
+\end{equation}
+The figure (\ref{fig:at-st-tt}) shows the above threshold, sub-threshold and total currents after matching the slope. 
+\begin{center}
+    \label{fig:at-st-tt}
+    \includegraphics[scale = 0.4]{../Images/03082024/slope-Io.png}
+\end{center}
+The figure (\ref{fig:total-current}) shows the total current curve in the region $V_{gs}$ from 0.5 V to 3 V. 
+\begin{center}
+    \label{fig:total-current}
+    \includegraphics[scale = 0.6]{../Images/03082024/slope-tot.png}
+\end{center}
+It can be seen that the total current is having a sharp point where slope changes abruptly. 
+Is this because $I_o = I_{at}(V_{gs}=V_{th}+ 2 m V_T) $ by equation (\ref{eq:Io})  rather than considering $I_st (V_{gs}=V_{th}+ 2 m V_T) = I_{at}(V_{gs}=V_{th}+ 2 m V_T) $ that results in $I_o =  \text{ gain } \frac{2 m^2 V_T ^ 2 }{\alpha}  \exp(-2)$. After fixing $I_o$ to this new value when plotted we get the total current as shown in figure (\ref{fig:tot-slo}).  
+\begin{center}
+    \label{fig:tot-slo}
+    \includegraphics[scale=0.6]{../Images/03082024/Ioexp2.png}
+\end{center}
+Even after this the slope is changing abruptly.
 \end{document}

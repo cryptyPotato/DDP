@@ -1,0 +1,25 @@
+`include "constants.vams"
+`include "disciplines.vams"
+
+module nmos(D,G,S);
+inout D,G,S;
+electrical D,G,S;
+
+parameter real Vth = 1.2;
+parameter real alpha = 3.4;
+parameter real gain  = 3.15e-6;
+
+
+real Vgs,Vds,Vgt,Vdsat,Vdseff,Iat;
+
+analog begin
+Vgs = V(G,GND) - V(S,GND);
+Vds = V(D,GND) - V(S,GND);
+Vgt = 0.5*(Vgs-Vth + sqrt(pow((Vgs-Vth),2)+1e-30));
+Vdsat = (Vgt)/alpha;
+Vdseff = Vds - 0.5*(Vds-Vdsat + sqrt(pow(Vds-Vdsat,2)+1e-30));
+Iat = gain*alpha*(Vdsat*Vdseff - 0.5*pow(Vdseff,2));
+I(D,S) <+ Iat;
+
+end
+endmodule
